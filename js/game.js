@@ -4,9 +4,11 @@ var field = document.querySelector('.field-left');
 var ball = document.querySelector('.ball');
 var title = document.querySelector('.title');
 var advise = document.querySelector('.advise');
+var start = document.querySelector("#start");
+var body = document.querySelector("body");
 
 configure();
-moveBall(randomize(9), randomize(2) * 4);
+start.addEventListener("click", kickoff);
 
 function randomize(max) {
 	var signal = (Math.random() * 100) % 2? 1: -1;
@@ -18,7 +20,14 @@ window.addEventListener('mousemove', function(e) {
 	advise.style.top = (playerLeft.offsetTop) + 'px';
 });
 
-
+function kickoff() {
+	title.textContent = 'Sorry, you can never win :/'
+	start.style.display = "none";
+	start.removeEventListener("click", kickoff);
+	configure();
+	body.style.cursor = "none";
+	moveBall(randomize(8), randomize(5) * 4);	
+}
 
 function moveBall(topIncrementer, leftIncrementer) {
 	ball.center = (ball.offsetTop + ball.offsetTop + ball.clientHeight) / 2;
@@ -30,7 +39,7 @@ function moveBall(topIncrementer, leftIncrementer) {
 		if(ball.center <= (playerLeft.offsetTop + playerLeft.clientHeight) && ball.center >= (playerLeft.offsetTop)) {
 			if(ball.offsetLeft <= playerLeft.offsetLeft + playerLeft.clientWidth && ball.offsetLeft > playerLeft.offsetLeft) {
 				leftIncrementer *= -1;
-				leftIncrementer += 0.1 * (Math.abs(leftIncrementer)/leftIncrementer);
+				leftIncrementer += 0.2 * (Math.abs(leftIncrementer)/leftIncrementer);
 			} 
 		}
 	}
@@ -38,7 +47,7 @@ function moveBall(topIncrementer, leftIncrementer) {
 		if(ball.center <= (playerRight.offsetTop + playerRight.clientHeight) && ball.center >= (playerRight.offsetTop)) {
 			if(ball.offsetLeft + ball.clientWidth >= playerRight.offsetLeft) {
 				leftIncrementer *= -1;
-				leftIncrementer += 0.1 * (Math.abs(leftIncrementer)/leftIncrementer);
+				leftIncrementer += 0.2 * (Math.abs(leftIncrementer)/leftIncrementer);
 			} 
 		}
 	}
@@ -48,12 +57,10 @@ function moveBall(topIncrementer, leftIncrementer) {
 
 	playerRight.style.top = (ball.offsetTop - playerRight.clientHeight/2) + 'px';
 	if(ball.offsetLeft + ball.clientWidth < playerLeft.offsetLeft) {
-		title.textContent = 'I told you... Restarting in ' + 3 + ' seconds!';
-		setTimeout(function() {
-			configure();
-			moveBall(randomize(10), randomize(5) * 4);
-			title.textContent = 'Sorry, you can never win'
-		}, 3 * 1000);
+		title.textContent = 'I told you...';
+		start.style.display = "inline-block";
+		start.addEventListener("click", kickoff);
+		body.style.cursor = "default";
 	}
 	else {
 		setTimeout(moveBall, 16, topIncrementer, leftIncrementer);

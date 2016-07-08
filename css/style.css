@@ -1,18 +1,26 @@
 html, body {
 	height: 100%;
 	width: 100%;
-	cursor: none;
 	overflow: hidden;
 	font-family: "Open Sans", sans-serif;
 	font-weight: 600;
+	text-align: center;
 }
 
 h1 {
 	text-align: center;
 }
 
-.hand {
-	font-family: 'Handlee';
+.hand, #start {
+	font-family: 'Handlee', cursive;
+}
+
+#start {
+	margin: 0 auto;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 150%;
+	margin-bottom: 2em;
 }
 
 .advise {
