@@ -20,7 +20,13 @@ h1 {
 	font-weight: bold;
 	font-style: italic;
 	font-size: 150%;
-	margin-bottom: 2em;
+}
+
+#timer {
+	position: absolute;
+	bottom: 10%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .advise {

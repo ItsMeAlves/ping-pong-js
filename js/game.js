@@ -6,6 +6,9 @@ var title = document.querySelector('.title');
 var advise = document.querySelector('.advise');
 var start = document.querySelector("#start");
 var body = document.querySelector("body");
+var timer = document.querySelector("#timer");
+var time = 0;
+var margin = 50;
 
 configure();
 start.addEventListener("click", kickoff);
@@ -26,10 +29,12 @@ function kickoff() {
 	start.removeEventListener("click", kickoff);
 	configure();
 	body.style.cursor = "none";
-	moveBall(randomize(8), randomize(5) * 4);	
+	moveBall(randomize(1)*8, randomize(1)*18);	
 }
 
 function moveBall(topIncrementer, leftIncrementer) {
+	time += 15;
+	timer.textContent = "You survived for " + time + " ms";
 	ball.center = (ball.offsetTop + ball.offsetTop + ball.clientHeight) / 2;
 
 	if(ball.offsetTop > field.offsetTop + field.clientHeight) topIncrementer *= -1;
@@ -56,14 +61,15 @@ function moveBall(topIncrementer, leftIncrementer) {
 	ball.style.top = (ball.offsetTop + topIncrementer) + 'px';
 
 	playerRight.style.top = (ball.offsetTop - playerRight.clientHeight/2) + 'px';
-	if(ball.offsetLeft + ball.clientWidth < playerLeft.offsetLeft) {
+	if(ball.offsetLeft + ball.clientWidth + margin < playerLeft.offsetLeft) {
 		title.textContent = 'I told you...';
 		start.style.display = "inline-block";
 		start.addEventListener("click", kickoff);
 		body.style.cursor = "default";
+		time = 0;
 	}
 	else {
-		setTimeout(moveBall, 16, topIncrementer, leftIncrementer);
+		setTimeout(moveBall, 15, topIncrementer, leftIncrementer);
 	}
 }
 
