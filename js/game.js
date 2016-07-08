@@ -8,6 +8,7 @@ var advise = document.querySelector('.advise');
 var start = document.querySelector("#start");
 var body = document.querySelector("body");
 var timer = document.querySelector("#timer");
+title.textContent = 'Sorry, you can never win :/'
 
 //Create a time variable to hold the survival time
 //And margin variable means a error margin to be sure when the player has lost
